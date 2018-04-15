@@ -7,11 +7,11 @@ utils.lxc.attach() {
 }
 
 utils.lxc.pipetofile() {
-  log "Sending piped content inside '${CONTAINER}' at $1 ..."
   lxc-attach -n ${CONTAINER} -- /bin/bash -c "tee $1 > /dev/null" &>> ${LOG}
 }
 
 utils.lxc.runscript() {
+  log "Running $1 inside '${CONTAINER}'..."
   cat $1 | utils.lxc.pipetofile /script.sh
   utils.lxc.attach /bin/bash /script.sh
 }

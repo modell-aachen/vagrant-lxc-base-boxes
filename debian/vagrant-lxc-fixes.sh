@@ -1,7 +1,6 @@
 #!/bin/bash
 set -e
 source /etc/profile
-source /envdump
 
 # Fixes some networking issues
 # See https://github.com/fgrehm/vagrant-lxc/issues/91 for more info

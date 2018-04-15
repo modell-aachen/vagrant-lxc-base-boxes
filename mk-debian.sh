@@ -39,7 +39,6 @@ SECS=15
 log "Sleeping for $SECS seconds..."
 sleep $SECS
 
-printenv | grep "^\(DISTRIBUTION\|RELEASE\|CONTAINER\|LANG\)=" | utils.lxc.pipetofile /envdump
 utils.lxc.runscript debian/vagrant-lxc-fixes.sh
 utils.lxc.runscript debian/install-extras.sh
 utils.lxc.runscript common/prepare-vagrant-user.sh

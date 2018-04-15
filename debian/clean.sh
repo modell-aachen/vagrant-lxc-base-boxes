@@ -1,9 +1,10 @@
 #!/bin/bash
 set -e
+source /etc/profile
 
 echo "Cleaning up"
 
-rm /envdump /script.sh
+rm /script.sh
 
 echo 'Removing temporary files...'
 rm -rf /tmp/*
