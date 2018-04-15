@@ -3,11 +3,11 @@
 utils.lxc.attach() {
   cmd="$@"
   log "Running [${cmd}] inside '${CONTAINER}' container..."
-  (lxc-attach -n ${CONTAINER} -- $cmd) &>> ${LOG}
+  lxc-attach -n ${CONTAINER} -- $cmd
 }
 
 utils.lxc.pipetofile() {
-  lxc-attach -n ${CONTAINER} -- /bin/bash -c "tee $1 > /dev/null" &>> ${LOG}
+  lxc-attach -n ${CONTAINER} -- /bin/bash -c "tee $1 > /dev/null"
 }
 
 utils.lxc.runscript() {
@@ -17,17 +17,17 @@ utils.lxc.runscript() {
 }
 
 utils.lxc.start() {
-  lxc-start -d -n ${CONTAINER} &>> ${LOG} || true
+  lxc-start -d -n ${CONTAINER} || true
 }
 
 utils.lxc.stop() {
-  lxc-stop -n ${CONTAINER} &>> ${LOG} || true
+  lxc-stop -n ${CONTAINER} || true
 }
 
 utils.lxc.destroy() {
-  lxc-destroy -n ${CONTAINER} &>> ${LOG}
+  lxc-destroy -n ${CONTAINER}
 }
 
 utils.lxc.create() {
-  lxc-create -n ${CONTAINER} "$@" &>> ${LOG}
+  lxc-create -n ${CONTAINER} "$@"
 }

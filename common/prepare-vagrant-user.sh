@@ -22,7 +22,7 @@ elif [ ${DISTRIBUTION} = 'centos' -o ${DISTRIBUTION} = 'fedora' ]; then
 else
   echo 'Creating vagrant user...'
   useradd --create-home -s /bin/bash vagrant
-  adduser vagrant sudo
+  adduser vagrant sudo || useradd vagrant
   echo -n 'vagrant:vagrant' | chpasswd
 fi
 

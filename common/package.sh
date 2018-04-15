@@ -3,6 +3,13 @@ set -e
 
 source common/ui.sh
 
+ROOTFS="${HOME}/.local/share/lxc/${CONTAINER}/rootfs"
+WORKING_DIR="/tmp/${CONTAINER}"
+
+debug "Creating ${WORKING_DIR}"
+mkdir -p ${WORKING_DIR}
+mkdir -p $(dirname ${PACKAGE})
+
 # TODO: Create file with build date / time on container
 
 info "Packaging '${CONTAINER}' to '${PACKAGE}'..."
@@ -13,10 +20,10 @@ if [ -f ${WORKING_DIR}/rootfs.tar.gz ]; then
 fi
 
 log "Compressing container's rootfs (sudo needed)"
-pushd  $(dirname ${ROOTFS}) &>>${LOG}
+pushd  $(dirname ${ROOTFS})
   sudo tar --numeric-owner --anchored --exclude=./rootfs/dev/log -czf \
       ${WORKING_DIR}/rootfs.tar.gz ./rootfs/*
-popd &>>${LOG}
+popd
 sudo chown ${UID} ${WORKING_DIR}/rootfs.tar.gz
 
 # Prepare package contents
