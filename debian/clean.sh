@@ -1,19 +1,15 @@
 #!/bin/bash
 set -e
 
-source common/ui.sh
-source common/utils.sh
+echo "Cleaning up"
 
-debug 'Bringing container up'
-utils.lxc.start
+rm /envdump /script.sh
 
-info "Cleaning up '${CONTAINER}'..."
+echo 'Removing temporary files...'
+rm -rf /tmp/*
 
-log 'Removing temporary files...'
-rm -rf ${ROOTFS}/tmp/*
+echo 'cleaning up dhcp leases'
+rm -f /var/lib/dhcp/*
 
-log 'cleaning up dhcp leases'
-rm -f ${ROOTFS}/var/lib/dhcp/*
-
-log 'Removing downloaded packages...'
-utils.lxc.attach apt-get clean
+echo 'Removing downloaded packages...'
+apt-get clean

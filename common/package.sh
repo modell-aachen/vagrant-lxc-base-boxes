@@ -7,19 +7,17 @@ source common/ui.sh
 
 info "Packaging '${CONTAINER}' to '${PACKAGE}'..."
 
-debug 'Stopping container'
-lxc-stop -n ${CONTAINER} &>/dev/null || true
-
 if [ -f ${WORKING_DIR}/rootfs.tar.gz ]; then
   log "Removing previous rootfs tarball"
   rm -f ${WORKING_DIR}/rootfs.tar.gz
 fi
 
-log "Compressing container's rootfs"
+log "Compressing container's rootfs (sudo needed)"
 pushd  $(dirname ${ROOTFS}) &>>${LOG}
-  tar --numeric-owner --anchored --exclude=./rootfs/dev/log -czf \
+  sudo tar --numeric-owner --anchored --exclude=./rootfs/dev/log -czf \
       ${WORKING_DIR}/rootfs.tar.gz ./rootfs/*
 popd &>>${LOG}
+sudo chown ${UID} ${WORKING_DIR}/rootfs.tar.gz
 
 # Prepare package contents
 log 'Preparing box package contents'
