@@ -5,7 +5,7 @@ source /etc/profile
 
 echo 'Installing packages and upgrading'
 
-PACKAGES=(vim net-misc/curl wget man-db openssh bash-completion ca-certificates sudo)
+PACKAGES=(net-misc/curl wget man-db openssh ca-certificates sudo)
 
 echo "Installing additional packages: ${ADDPACKAGES}"
 PACKAGES+=" ${ADDPACKAGES}"
@@ -32,8 +32,10 @@ if [[ $SALT = 1 ]]; then
 fi
 
 # trying to set capabilities on an unprivileged container fails.
-echo "net-misc/iputils -filecaps" > /etc/portage/package.use/vagrant_overrides
+echo "*/* -filecaps" > /etc/portage/package.use/vagrant_overrides
 
 emerge --sync
 emerge --noreplace ${PACKAGES[*]}
 emerge -uND @world
+
+rc-config add sshd default

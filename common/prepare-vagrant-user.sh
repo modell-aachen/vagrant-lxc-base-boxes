@@ -22,27 +22,17 @@ elif [ ${DISTRIBUTION} = 'centos' -o ${DISTRIBUTION} = 'fedora' ]; then
 else
   echo 'Creating vagrant user...'
   useradd --create-home -s /bin/bash vagrant
-  adduser vagrant sudo || useradd vagrant
   echo -n 'vagrant:vagrant' | chpasswd
 fi
 
 # Configure SSH access
-if [ -d /home/vagrant/.ssh ]; then
-  echo 'Skipping vagrant SSH credentials configuration'
-else
-  echo 'SSH key has not been set'
-  mkdir -p /home/vagrant/.ssh
-  echo $VAGRANT_KEY > /home/vagrant/.ssh/authorized_keys
-  chown -R vagrant: /home/vagrant/.ssh
-  echo 'SSH credentials configured for the vagrant user.'
-fi
+mkdir -p /home/vagrant/.ssh
+echo $VAGRANT_KEY > /home/vagrant/.ssh/authorized_keys
+chown -R vagrant /home/vagrant/.ssh
+chmod +x /home/vagrant/.ssh
+echo 'SSH credentials configured for the vagrant user.'
 
 # Enable passwordless sudo for the vagrant user
-if [ -f /etc/sudoers.d/vagrant ]; then
-  echo 'Skipping sudoers file creation.'
-else
-  echo 'Sudoers file was not found'
-  echo "vagrant ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/vagrant
-  chmod 0440 /etc/sudoers.d/vagrant
-  echo 'Sudoers file created.'
-fi
+echo "vagrant ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/vagrant
+chmod 0440 /etc/sudoers.d/vagrant
+echo 'Sudoers file created.'

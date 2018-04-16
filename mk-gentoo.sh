@@ -30,9 +30,9 @@ SECS=15
 log "Sleeping for $SECS seconds..."
 sleep $SECS
 
-#utils.lxc.runscript gentoo/install-packages.sh
-#utils.lxc.runscript common/prepare-vagrant-user.sh
-#utils.lxc.runscript gentoo/clean.sh
+utils.lxc.runscript gentoo/install-packages.sh
+utils.lxc.runscript common/prepare-vagrant-user.sh
+utils.lxc.runscript gentoo/clean.sh
 utils.lxc.stop
 
 ./common/package.sh
