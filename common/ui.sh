@@ -7,19 +7,16 @@ export WARN_COLOR='\033[33;01m'
 
 log() {
   LOG_PREFIX="${DISTRIBUTION}-${RELEASE}"
-  echo "    [${LOG_PREFIX}] ${1}" >>${LOG}
-  echo "    [${LOG_PREFIX}] ${1}" >&2
+  echo "    [${LOG_PREFIX}] ${1}"
 }
 
 warn() {
   LOG_PREFIX="${DISTRIBUTION}-${RELEASE}"
-  echo "==> [${LOG_PREFIX}] [WARN] ${1}" >>${LOG}
   echo -e "${WARN_COLOR}==> [${LOG_PREFIX}] ${1}${NO_COLOR}"
 }
 
 info() {
   LOG_PREFIX="${DISTRIBUTION}-${RELEASE}"
-  echo "==> [${LOG_PREFIX}] [INFO] ${1}" >>${LOG}
   echo -e "${OK_COLOR}==> [${LOG_PREFIX}] ${1}${NO_COLOR}"
 }
 

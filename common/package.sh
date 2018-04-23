@@ -3,6 +3,13 @@ set -e
 
 source common/ui.sh
 
+ROOTFS="/var/lib/lxc/${CONTAINER}/rootfs"
+WORKING_DIR="/tmp/${CONTAINER}"
+
+debug "Creating ${WORKING_DIR}"
+mkdir -p ${WORKING_DIR}
+mkdir -p $(dirname ${PACKAGE})
+
 # TODO: Create file with build date / time on container
 
 info "Packaging '${CONTAINER}' to '${PACKAGE}'..."
@@ -16,10 +23,10 @@ if [ -f ${WORKING_DIR}/rootfs.tar.gz ]; then
 fi
 
 log "Compressing container's rootfs"
-pushd  $(dirname ${ROOTFS}) &>>${LOG}
+pushd  $(dirname ${ROOTFS})
   tar --numeric-owner --anchored --exclude=./rootfs/dev/log -czf \
       ${WORKING_DIR}/rootfs.tar.gz ./rootfs/*
-popd &>>${LOG}
+popd
 
 # Prepare package contents
 log 'Preparing box package contents'
@@ -35,3 +42,6 @@ sed -i "s/<TODAY>/${NOW}/" ${WORKING_DIR}/metadata.json
 log 'Packaging box'
 TARBALL=$(readlink -f ${PACKAGE})
 (cd ${WORKING_DIR} && tar -czf $TARBALL ./*)
+
+chmod +rw ${PACKAGE}
+chown ${USER}: ${PACKAGE}

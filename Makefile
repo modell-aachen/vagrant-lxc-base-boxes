@@ -46,6 +46,10 @@ $(FEDORA_BOXES):
 	@sudo chmod +rw $(PACKAGE)
 	@sudo chown ${USER}: $(PACKAGE)
 
+.PHONY: gentoo
+gentoo:
+	@sudo -E ./mk-gentoo.sh
+
 acceptance: CONTAINER = "vagrant-base-acceptance-$(ARCH)"
 acceptance: PACKAGE = "output/${TODAY}/vagrant-lxc-acceptance-$(ARCH).box"
 acceptance:
