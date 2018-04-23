@@ -63,7 +63,6 @@ then
   utils.lxc.stop
   echo  >> /var/lib/lxc/${CONTAINER}/config
   echo "# settings for systemd with PID 1:" >> /var/lib/lxc/${CONTAINER}/config
-  echo "lxc.kmsg = 0" >> /var/lib/lxc/${CONTAINER}/config
   echo "lxc.autodev = 1" >> /var/lib/lxc/${CONTAINER}/config
   utils.lxc.start
   utils.lxc.attach rm -f /dev/kmsg
