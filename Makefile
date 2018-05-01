@@ -1,7 +1,7 @@
-UBUNTU_BOXES= precise quantal raring saucy trusty utopic vivid wily xenial
-DEBIAN_BOXES= squeeze wheezy jessie stretch sid
-CENTOS_BOXES= 6 7
-FEDORA_BOXES= rawhide 23 22 21 20 19
+UBUNTU_BOXES= trusty xenial
+DEBIAN_BOXES= jessie stretch sid
+CENTOS_BOXES= 7
+FEDORA_BOXES= 27 
 TODAY=$(shell date -u +"%Y-%m-%d")
 
 # Replace i686 with i386 and x86_64 with amd64
@@ -54,7 +54,7 @@ acceptance: CONTAINER = "vagrant-base-acceptance-$(ARCH)"
 acceptance: PACKAGE = "output/${TODAY}/vagrant-lxc-acceptance-$(ARCH).box"
 acceptance:
 	@mkdir -p $$(dirname $(PACKAGE))
-	@PUPPET=1 CHEF=1 sudo -E ./mk-debian.sh ubuntu precise $(ARCH) $(CONTAINER) $(PACKAGE)
+	@PUPPET=1 CHEF=1 sudo -E ./mk-debian.sh ubuntu xenial $(ARCH) $(CONTAINER) $(PACKAGE)
 	@sudo chmod +rw $(PACKAGE)
 	@sudo chown ${USER}: $(PACKAGE)
 

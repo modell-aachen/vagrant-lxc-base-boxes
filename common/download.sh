@@ -26,34 +26,15 @@ fi
 
 # If we got to this point, we need to create the container
 log "Creating container..."
-if [ $RELEASE = 'raring' ] || [ $RELEASE = 'wily' ] || [ $RELEASE = 'xenial' ]; then
-  utils.lxc.create -t ubuntu -- \
-                   --release ${RELEASE} \
-                   --arch ${ARCH}
-elif [ $RELEASE = 'squeeze' ] || [ $RELEASE = 'wheezy' ]; then
-  utils.lxc.create -t debian -- \
-                   --release ${RELEASE} \
-                   --arch ${ARCH}
-elif [ ${DISTRIBUTION} = 'fedora' ] && [ "${RELEASE}" = 'rawhide' ]; then
-  ARCH=$(echo ${ARCH} | sed -e "s/38/68/" | sed -e "s/amd64/x86_64/")
-  utils.lxc.create -t fedora --\
-                   --release ${RELEASE} \
-                   --arch ${ARCH}
-elif [ ${DISTRIBUTION} = 'fedora' ] && [ ${RELEASE} -ge 21 ]; then
-  ARCH=$(echo ${ARCH} | sed -e "s/38/68/" | sed -e "s/amd64/x86_64/")
-  utils.lxc.create -t fedora --\
-                   --release ${RELEASE} \
-                   --arch ${ARCH}
-else
+
   utils.lxc.create -t download -- \
                    --dist ${DISTRIBUTION} \
                    --release ${RELEASE} \
                    --arch ${ARCH}
-fi
+
 if [ ${DISTRIBUTION} = 'fedora' ] ||\
-   [ ${DISTRIBUTION} = 'ubuntu' -a ${RELEASE} = 'wily' ] ||\
-   [ ${DISTRIBUTION} = 'debian' -a ${RELEASE} = 'jessie' ] ||\
-   [ ${DISTRIBUTION} = 'debian' -a ${RELEASE} = 'stretch' ]
+   [ ${DISTRIBUTION} = 'ubuntu' ] ||\
+   [ ${DISTRIBUTION} = 'debian' ]
 then
   # Improve systemd support:
   # - The fedora template does it but the fedora images from the download
