@@ -18,9 +18,8 @@ This repository contains a set of scripts for creating base boxes for usage with
 
 ## Status
 
-This is a fork of `obnoxxx/vagrant-lxc-base-boxes` which itself was a fork for
-`fgrehm/vagrant-lxc-base-boxes`. The goal is to make LXC box generation work for LXC 3.0+. The
-repo is not in top shape, but it works `make stretch` (which is what I use myself).
+This is a fork of `hsoft/vagrant-lxc-base-boxes` which itself was a fork of `obnoxxx/vagrant-lxc-base-boxes` and `fgrehm/vagrant-lxc-base-boxes`. The goal is to make LXC box generation work for LXC 3.0+. The
+repo is not in top shape, but it works `make buster` (which is what we use ourself).
 
 It should be easy enough for you to add support for distros you use (PR welcome).
 
