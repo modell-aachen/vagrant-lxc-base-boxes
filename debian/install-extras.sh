@@ -19,13 +19,13 @@ PACKAGES=(vim curl wget man-db openssh-server bash-completion ca-certificates su
 log "Installing additional packages: ${ADDPACKAGES}"
 PACKAGES+=" ${ADDPACKAGES}"
 
-if [ $DISTRIBUTION = 'ubuntu' ]; then
+if [ $DISTRIBUTION = 'ubuntu' ] || [ $RELEASE == 'buster' ]; then
   PACKAGES+=' software-properties-common'
 fi
 if [ $RELEASE != 'raring' ] && [ $RELEASE != 'saucy' ] && [ $RELEASE != 'trusty' ] && [ $RELEASE != 'wily' ] ; then
   PACKAGES+=' nfs-common'
 fi
-if [ $RELEASE != 'stretch' ] ; then
+if [ $RELEASE != 'stretch' ] && [ $RELEASE != 'buster' ]; then
   PACKAGES+=' python-software-properties'
 fi
 utils.lxc.attach apt-get update
